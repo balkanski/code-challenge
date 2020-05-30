@@ -14,16 +14,17 @@ import java.util.stream.Collectors;
 @Component
 public class JobProcessorService {
 
-    private String script;
 
-    public String createScript(Job job) {
+    private Job orderedJob;
 
-        script = "#!/usr/bin/env bash\n\n";
+    public Job createOrdering(Job job) {
+
+        orderedJob = new Job.Builder().build();
 
         if(hasCycle(job)){
-            return "The provided input contains loops and order cannot be defined";
+            throw new UnableToEvaluateException("This may be due to existence of loops in the order of commands");
         } else {
-            return script;
+            return orderedJob;
         }
     }
 
@@ -54,7 +55,7 @@ public class JobProcessorService {
         }
         currentTask.setBeingVisited(false);
         currentTask.setVisited(true);
-        script+=String.format("%s\n", currentTask.getShellCommand());
+        orderedJob.addToTasks(currentTask);
         return false;
     }
 
@@ -71,5 +72,18 @@ public class JobProcessorService {
             }
         });
        return job.getTasks().stream().filter(x -> task.getRequiredTasks().contains(x.getName())).collect(Collectors.toList());
+    }
+
+    public String createScript(Job job) {
+
+        Job oj = createOrdering(job);
+
+        String script = "#!/usr/bin/env bash\n\n";
+
+        for(Task t: oj.getTasks()){
+            script+=String.format("%s\n", t.getShellCommand());
+        };
+
+        return script;
     }
 }

@@ -2,7 +2,7 @@ package com.example.codechallenge.service.exception;
 
 public class UnableToEvaluateException extends RuntimeException {
 
-    public UnableToEvaluateException (){
-        super();
+    public UnableToEvaluateException (String message){
+        super(message);
     }
 }

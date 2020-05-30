@@ -14,11 +14,23 @@ public class TaskD {
     @JsonProperty("requires")
     private List<String> requiredTasks;
 
+    public TaskD(String name, String shellCommand, List<String> requiredTasks) {
+        this.name = name;
+        this.shellCommand = shellCommand;
+        this.requiredTasks = requiredTasks;
+    }
+
+    public TaskD(){}
+
     public Task toTask(){
         return new Task.Builder()
                 .withName(name)
                 .withShellCommand(shellCommand)
                 .withRequiredTasks(requiredTasks)
                 .build();
+    }
+
+    public static TaskD fromDomain (Task t){
+        return new TaskD(t.getName(), t.getShellCommand(), t.getRequiredTasks());
     }
 }

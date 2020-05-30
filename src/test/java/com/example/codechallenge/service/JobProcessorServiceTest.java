@@ -1,5 +1,6 @@
 package com.example.codechallenge.service;
 
+import com.example.codechallenge.service.exception.UnableToEvaluateException;
 import com.example.codechallenge.service.exception.UnrecognisedRequiredTask;
 import com.example.codechallenge.service.model.Job;
 import com.example.codechallenge.service.model.Task;
@@ -77,9 +78,14 @@ class JobProcessorServiceTest {
     void createScript_caseSelfLoop(){
         Job job = new Job.Builder().withTasks(Arrays.asList(t1, t2, t3, t5)).build();
 
-        String expectedOutput = "The provided input contains loops and order cannot be defined";
+        UnableToEvaluateException exception = assertThrows(UnableToEvaluateException.class, () -> {
+            jobProcessorService.createScript(job);
+        });
 
-        assertThat(jobProcessorService.createScript(job)).isEqualTo(expectedOutput);
+        String expectedMessage = "This may be due to existence of loops in the order of commands";
+        String actualMessage = exception.getMessage();
+
+        assertThat(actualMessage).isEqualTo(expectedMessage);
 
     }
 
@@ -88,9 +94,14 @@ class JobProcessorServiceTest {
 
         Job job = new Job.Builder().withTasks(Arrays.asList(t2, t3, t6)).build();
 
-        String expectedOutput = "The provided input contains loops and order cannot be defined";
+        UnableToEvaluateException exception = assertThrows(UnableToEvaluateException.class, () -> {
+            jobProcessorService.createScript(job);
+        });
 
-        assertThat(jobProcessorService.createScript(job)).isEqualTo(expectedOutput);
+        String expectedMessage = "This may be due to existence of loops in the order of commands";
+        String actualMessage = exception.getMessage();
+
+        assertThat(actualMessage).isEqualTo(expectedMessage);
     }
 
     @Test

@@ -52,10 +52,6 @@ class JobProcessorControllerTest {
     @Test
     void createScript() throws JsonProcessingException {
 
-
-
-
-
         ArgumentCaptor<Job> captor = ArgumentCaptor.forClass(Job.class);
 
         when(jobProcessorService.createScript(any(Job.class))).thenReturn("Execute this");

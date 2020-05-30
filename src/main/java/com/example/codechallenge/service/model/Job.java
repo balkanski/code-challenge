@@ -1,5 +1,6 @@
 package com.example.codechallenge.service.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Job {
@@ -12,6 +13,13 @@ public class Job {
 
     public Job(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public void addToTasks(Task t){
+        if(this.getTasks()==null){
+            this.tasks = new ArrayList<Task>();
+        }
+        this.tasks.add(t);
     }
 
     public static class Builder{
