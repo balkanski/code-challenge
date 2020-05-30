@@ -86,6 +86,11 @@ echo 'Hello World!' > /tmp/file1
 cat /tmp/file1
 rm /tmp/file1
 ```
+### Used technology
+
+This application is written in Java 11 with the use of the Spring Boot framework.
+As a build automation system I have used Gradle.
+JUnit 5 and Mockito are used for testing.
 
 ### How to run
 To run the application run the following command:
