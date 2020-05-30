@@ -4,8 +4,6 @@ import com.example.codechallenge.service.exception.UnableToEvaluateException;
 import com.example.codechallenge.service.exception.UnrecognisedRequiredTask;
 import com.example.codechallenge.service.model.Job;
 import com.example.codechallenge.service.model.Task;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
