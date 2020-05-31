@@ -101,6 +101,17 @@ To run the application run the following command:
 
 By default the application will run on port 8080
 
+Alternatively, after building the application, you can use the provided docker image by running:
+
+```
+     docker build -t cc:latest --rm=true .
+     docker run cc -p 8080:8080
+```
+
+Both of those will make the application available at:
+```
+http://localhost:8080
+```
 To run the tests for the application run:
 ```
 ./gradlew test
