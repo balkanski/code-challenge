@@ -153,3 +153,9 @@ The output from the /createScript endpoint can be directly piped to bash in the 
 ```
 curl -d @mytask.json --location --request POST 'http://localhost:8080/createScript' --header 'Content-Type: application/json' | bash
 ```
+
+### Possible improvements
+I have identified a bottleneck in the JobProcessorService class that will significantly increase the time complexity.
+This was due to flawed design of the Task class and can be improved in future versions.
+Also, another possible improvement is to check whether a task with the same name is already created for the job, 
+which should not be allowed but currently is.
